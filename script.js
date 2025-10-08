@@ -15,10 +15,7 @@ let questionStartTime = 0;
 const QUESTION_TIME = 20;
 let QUESTIONS = [];
 
-// --- Âm thanh ---
-let backgroundMusic = new Audio("music/background.mp3");
-backgroundMusic.loop = true;
-backgroundMusic.volume = 0.7; // âm lượng 70%
+
 
 
 // --- DOM elements ---
@@ -328,6 +325,21 @@ if (oldText !== newText) {
       lobby.style.display = "none";
       gameArea.style.display = "block";
       roomTitle.innerText = `Phòng ${roomId}${isHost ? " (Host)" : ""}`;
+
+    // 🎵 Khi game bắt đầu: phát nhạc nền cho tất cả
+try {
+  if (!window.backgroundMusic) {
+    window.backgroundMusic = new Audio("music/background.mp3"); // đúng tên file của bạn
+    window.backgroundMusic.loop = true;
+    window.backgroundMusic.volume = 0.9;
+  }
+  window.backgroundMusic.play().catch(function(err) {
+    console.log("⚠️ Không thể phát nhạc nền ngay (chưa có tương tác):", err);
+  });
+} catch (e) {
+  console.log("Lỗi khi phát nhạc nền:", e);
+}
+
       // --- Hiển thị tên người chơi và số lượng người đang trong phòng ---
 const playerInfo = document.getElementById("playerInfo");
 db.ref(`rooms/${roomId}/players`).on("value", snap => {
@@ -348,27 +360,69 @@ db.ref(`rooms/${roomId}/players`).on("value", snap => {
 // --- Host bắt đầu game ---
 startGameBtn.onclick = async () => {
   if (!isHost) return;
-  // 🎵 Bắt đầu phát nhạc nền khi game khởi động
-try {
-  backgroundMusic.currentTime = 0;
-  backgroundMusic.play().catch(err => console.log("Autoplay blocked:", err));
-} catch (e) {
-  console.log("Không thể phát nhạc:", e);
-}
+  startGameBtn.disabled = true; // tránh bấm nhiều lần
 
+  // 🎬 Hiệu ứng đếm ngược trước khi bắt đầu
+  const countdown = document.getElementById("countdownOverlay");
+  const numberEl = document.getElementById("countdownNumber");
+  countdown.style.display = "flex";
 
-  if (QUESTIONS.length === 0) {
-    alert("⚠️ Không tìm thấy câu hỏi trong Firebase.\nHãy kiểm tra nút 'questions' trong Realtime Database!");
-    return;
+  let counter = 3;
+
+  function showNumber(n) {
+    numberEl.textContent = n;
+    numberEl.style.animation = "none";
+    void numberEl.offsetWidth; // reset animation
+    numberEl.style.animation = "zoomInOut 1s ease forwards";
+
+    // 🔔 Âm thanh beep nhỏ cho mỗi số (nếu có)
+    try {
+      const beep = new Audio("music/beep.mp3");
+      beep.volume = 0.5;
+      beep.play().catch(() => {});
+    } catch (e) {}
   }
-  
-  await db.ref(`rooms/${roomId}`).update({
-    started: true,
-    currentIndex: 0
-  });
-  await setQuestion(0);
-  startTimer(QUESTION_TIME);
+
+  showNumber(counter);
+
+  const interval = setInterval(async () => {
+    counter--;
+    if (counter > 0) {
+      showNumber(counter);
+    } else {
+      clearInterval(interval);
+      countdown.style.display = "none";
+
+      // 🟢 Bắt đầu phát nhạc nền sau khi đếm xong
+      try {
+        if (window.backgroundMusic) {
+          window.backgroundMusic.currentTime = 0;
+          window.backgroundMusic.play().catch(err => console.log("Autoplay blocked:", err));
+        }
+      } catch (e) {
+        console.log("Không thể phát nhạc nền:", e);
+      }
+
+      // 🚀 Kiểm tra câu hỏi
+      if (QUESTIONS.length === 0) {
+        alert("⚠️ Không tìm thấy câu hỏi trong Firebase.\nHãy kiểm tra mục 'questions'!");
+        return;
+      }
+
+      // 🔥 Cập nhật trạng thái để tất cả client cùng bắt đầu
+      await db.ref(`rooms/${roomId}`).update({
+        started: true,
+        currentIndex: 0,
+        music: "background" // để client biết phát nhạc nền
+      });
+
+      // 🧠 Bắt đầu câu hỏi đầu tiên
+      await setQuestion(0);
+      startTimer(QUESTION_TIME);
+    }
+  }, 1000);
 };
+
 
 // --- Đặt câu hỏi ---
 function setQuestion(index) {
@@ -515,9 +569,9 @@ function listenToFinish() {
     if (!finished) return;
 
     // 🛑 Dừng nhạc nền khi trò chơi kết thúc
-    if (backgroundMusic) {
-      backgroundMusic.pause();
-      backgroundMusic.currentTime = 0;
+    if (window.backgroundMusic) {
+      window.backgroundMusic.pause();
+      window.backgroundMusic.currentTime = 0;
     }
 
     // 🎬 Hiệu ứng đếm ngược trước khi hiển thị bảng xếp hạng
@@ -553,7 +607,7 @@ function listenToFinish() {
 
         // 🔊 Phát nhạc chiến thắng
         try {
-          const victorySound = new Audio("music/victory.mp3");
+          const victorySound = new Audio("music/victory.mp3"); // đúng tên file của bạn
           victorySound.volume = 0.8;
           victorySound.play().catch(err => console.log("Không phát được âm thanh:", err));
         } catch (e) {
@@ -572,6 +626,7 @@ function listenToFinish() {
     }, 1000);
   });
 }
+
 
 // --- 🎇 Hàm bắn pháo hoa confetti ---
 function launchConfetti() {
