@@ -1,0 +1,858 @@
+/* ==== Tổng thể ==== */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --bg-light: #f1f5f9;
+  --text-dark: #0f172a;
+  --text-light: #475569;
+  --success: #16a34a;
+  --error: #dc2626;
+}
+
+/* 🌈 Nền tổng thể đẹp mắt cho toàn game */
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* 🖼️ Đặt ảnh trước, gradient sau và thêm độ trong suốt */
+  background: 
+    url("images/anh2.jpg") no-repeat center center fixed,
+    linear-gradient(135deg, rgba(224, 231, 255, 0.7) 0%, rgba(240, 249, 255, 0.7) 40%, rgba(254, 252, 232, 0.7) 100%);
+  background-size: cover;
+  background-attachment: fixed;
+
+  color: var(--text-dark);
+  margin: 0;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+
+
+/* ==== MENU chính (phiên bản tối ưu, cân đối, mobile-first) ==== */
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.menu-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  background: #f9fafb;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.menu-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-block input {
+  flex: 1;
+  padding: 10px 2px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.menu-block input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.menu-block button {
+  white-space: nowrap;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: #2563eb;
+}
+.btn-primary:hover {
+  background: #1e40af;
+}
+
+.btn-secondary {
+  background: #22c55e;
+}
+.btn-secondary:hover {
+  background: #16a34a;
+}
+
+.menu-tip {
+  text-align: center;
+  font-size: 15px;
+  color: #475569;
+  max-width: 450px;
+  line-height: 1.5;
+  background: #f1f5f9;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+/* 📱 Mobile tối ưu */
+@media (max-width: 600px) {
+  .menu-block {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .menu-block input,
+  .menu-block button {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .menu-tip {
+
+    font-size: 14px;
+  }
+}
+
+/* ==== Container ==== */
+.container {
+  width: 90%;
+  max-width: 820px;
+  background: rgba(255, 255, 255, 0.9); /* hơi trong suốt để nhìn thấy nền */
+  backdrop-filter: blur(8px); /* làm mờ nền sau container */
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: 0.3s ease;
+}
+
+
+/* ==== Tiêu đề ==== */
+h1 {
+  text-align: center;
+  font-size: 26px;
+  color: var(--primary-dark);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  margin-top: 0;
+}
+
+/* ==== Giao diện MENU chính ==== */
+.menu-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.menu-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f9fafb;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.menu-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.menu-section input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  width: 220px;
+  background-color: white;
+}
+
+.menu-section input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.menu-section button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: #22c55e;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+}
+
+/* Responsive đẹp trên điện thoại */
+@media (max-width: 600px) {
+  .menu-flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .menu-section {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .menu-section input {
+    width: 90%;
+  }
+}
+
+/* ==== Panel ==== */
+.panel {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  transition: 0.25s;
+}
+
+.panel:hover {
+  background: #f3f4f6;
+}
+
+/* ==== Input & Button cơ bản ==== */
+input {
+  padding: 10px 12px;
+  margin: 6px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+button {
+  padding: 10px 18px;
+  margin: 6px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ==== Câu hỏi & lựa chọn ==== */
+#timer {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+  background: #e0e7ff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+#questionText {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+/* ==== Nút lựa chọn ==== */
+#options button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #eef2ff;
+  color: var(--text-dark);
+  margin: 8px 0;
+  font-size: 15px;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: 0.25s;
+}
+
+#options button:hover:not(:disabled) {
+  background: #dbeafe;
+  transform: scale(1.01);
+}
+
+/* 🎯 Khi chọn (chưa chấm) */
+#options button.selected {
+  background: #3b82f6 !important;
+  color: white;
+  border: 1px solid #1d4ed8;
+  transform: scale(0.98);
+  animation: pulseSelected 0.3s ease;
+}
+
+/* ✅ Đúng / ❌ Sai */
+#options button.correct {
+  background: #bbf7d0 !important;
+  color: #166534;
+  border: 2px solid #16a34a;
+  font-weight: 600;
+  animation: fadeCorrect 0.4s ease;
+}
+
+#options button.wrong {
+  background: #fecaca !important;
+  color: #991b1b;
+  border: 2px solid #dc2626;
+  font-weight: 600;
+  animation: fadeWrong 0.4s ease;
+}
+
+/* Hiệu ứng lựa chọn */
+@keyframes pulseSelected {
+  from { transform: scale(1.05); }
+  to { transform: scale(1); }
+}
+@keyframes fadeCorrect {
+  from { background: #ffffff; }
+  to { background: #bbf7d0; }
+}
+@keyframes fadeWrong {
+  from { background: #ffffff; }
+  to { background: #fecaca; }
+}
+
+/* ==== Lobby ==== */
+#players p {
+  background: #f8fafc;
+  margin: 4px 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+}
+
+/* ==== 🏆 Bảng Xếp Hạng ==== */
+#leaderboard {
+  text-align: center;
+  margin-top: 30px;
+  animation: fadeIn 0.6s ease;
+}
+
+.leaderboard-board {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.leaderboard-item {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 22px;
+  width: 80%;
+  max-width: 420px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-dark);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+.leaderboard-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.leaderboard-item.top1 {
+  background: linear-gradient(145deg, #ffe259, #ffa751);
+  border-color: #facc15;
+  font-weight: 700;
+  color: #78350f;
+}
+
+.leaderboard-item.top2 {
+  background: linear-gradient(145deg, #dcdde1, #a6acaf);
+  border-color: #94a3b8;
+  color: #334155;
+}
+
+.leaderboard-item.top3 {
+  background: linear-gradient(145deg, #eab308, #b45309);
+  border-color: #b45309;
+  color: #451a03;
+}
+
+.medal {
+  font-size: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==== 🎬 Hiệu ứng đếm ngược ==== */
+#countdownOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#countdownNumber {
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+  animation: zoomInOut 1s ease forwards;
+}
+
+@keyframes zoomInOut {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ==== 📘 Xem lại đáp án ==== */
+#reviewAnswers {
+  display: none;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.review-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.review-item b { color: var(--primary-dark); }
+.review-item .correct { color: var(--success); font-weight: 600; }
+.review-item .wrong { color: var(--error); opacity: 0.8; }
+
+.review-option {
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin: 3px 0;
+}
+
+.review-option.correct {
+  background-color: #bbf7d0;
+  border: 1px solid #16a34a;
+  color: #166534;
+}
+
+.review-option.wrong {
+  background-color: #fecaca;
+  border: 1px solid #dc2626;
+  color: #991b1b;
+}
+
+/* ==== Responsive chung ==== */
+@media (max-width: 600px) {
+  body { padding: 12px; }
+  .container { padding: 16px; }
+  input, button { width: 100%; margin: 6px 0; }
+  h1 { font-size: 22px; }
+}
+
+/* ==== QR Code trong sảnh chờ ==== */
+#qrWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease;
+}
+
+#qrCode canvas {
+  width: 160px !important;
+  height: 160px !important;
+}
+
+.qrHint {
+  font-size: 15px;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+/* ==== 🏆 Bảng Xếp Hạng đẹp ==== */
+.leaderboard-board {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.leaderboard-item {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 22px;
+  width: 80%;
+  max-width: 420px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-dark);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+.leaderboard-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* 🌟 Top 1–3 có hiệu ứng huy chương */
+.leaderboard-item.top1 {
+  background: linear-gradient(145deg, #ffe259, #ffa751);
+  border-color: #facc15;
+  font-weight: 700;
+  color: #78350f;
+}
+
+.leaderboard-item.top2 {
+  background: linear-gradient(145deg, #dcdde1, #a6acaf);
+  border-color: #94a3b8;
+  color: #334155;
+}
+
+.leaderboard-item.top3 {
+  background: linear-gradient(145deg, #eab308, #b45309);
+  border-color: #b45309;
+  color: #451a03;
+}
+
+.medal {
+  font-size: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* ==== MENU hành động (Tham gia / Tạo phòng) ==== */
+.menu-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.menu-actions button {
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  border: none;
+  transition: 0.25s;
+}
+
+.menu-actions .btn-primary {
+  background: var(--primary);
+}
+.menu-actions .btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.menu-actions .btn-secondary {
+  background: #22c55e;
+}
+.menu-actions .btn-secondary:hover {
+  background: #16a34a;
+}
+
+/* 📱 Mobile: xếp dọc */
+@media (max-width: 600px) {
+  .menu-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .menu-actions button {
+    width: 100%;
+    font-size: 17px;
+  }
+}
+
+
+hr {
+  border: none;
+  border-top: 1px dashed #d1d5db;
+  margin: 24px 0;
+}
+
+/* 🔧 Fix responsive trên điện thoại nhỏ */
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .menu-block {
+    width: 100%;
+    max-width: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .menu-block input,
+  .menu-block button {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .menu-tip {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* ==== 🎮 DANH SÁCH NGƯỜI CHƠI TRONG SẢNH CHỜ ==== */
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+  animation: fadeIn 0.5s ease;
+}
+
+.player-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  animation: slideIn 0.3s ease;
+}
+
+/* ==== 🎚 Giới hạn danh sách người chơi khi quá dài ==== */
+#players {
+  max-height: 400px; /* 👈 chiều cao tối đa hiển thị */
+  overflow-y: auto; /* bật thanh cuộn dọc */
+  padding-right: 6px; /* tránh chữ dính vào thanh cuộn */
+}
+
+/* ✨ Thanh cuộn đẹp (hiệu ứng như macOS / Discord) */
+#players::-webkit-scrollbar {
+  width: 8px;
+}
+
+#players::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#players::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.3);
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+#players::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.6);
+}
+
+/* 📱 Mobile: thấp hơn một chút */
+@media (max-width: 600px) {
+  #players {
+    max-height: 320px;
+  }
+}
+
+
+
+.player-card:hover {
+  background: #eef2ff;
+  transform: translateY(-2px);
+}
+
+.player-rank {
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.player-name {
+  flex: 1;
+  text-align: left;
+}
+
+.player-score {
+  font-weight: 600;
+  color: #475569;
+}
+
+/* 💛 Làm nổi bật Host */
+.host-player {
+  background: linear-gradient(90deg, #fff7e6, #fef9c3);
+  border: 1px solid #facc15;
+  color: #78350f;
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+}
+
+.host-player .player-rank {
+  background: #facc15;
+  color: #78350f;
+}
+
+/* ✨ Hiệu ứng xuất hiện */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
+  .player-card {
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+  .player-rank {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+  }
+}
+
+/* Hiển thị thông tin người chơi trong lobby */
+#playerInfoLobby {
+  margin: 8px 0 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-align: center;
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+/* ✨ Hiệu ứng nổi bật khi số người thay đổi */
+@keyframes pulseChange {
+  0% { transform: scale(1); background-color: #f8fafc; }
+  30% { transform: scale(1.08); background-color: #dbeafe; }
+  60% { transform: scale(0.98); background-color: #e0f2fe; }
+  100% { transform: scale(1); background-color: #f8fafc; }
+}
+
+.pulse-change {
+  animation: pulseChange 0.5s ease;
+}
+
+
+
+/* ==== Hiển thị thông tin người chơi khi đang chơi ==== */
+#playerInfo {
+  display: inline-block;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  color: #1e293b;
+  font-weight: 500;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  animation: fadeIn 0.4s ease;
+}
+ 

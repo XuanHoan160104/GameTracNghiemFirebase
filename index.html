@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Online — Multiplayer</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Thư viện popup đẹp -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Quiz Online Multiplayer</h1>
+
+
+
+
+    <!-- 🔹 Menu chính -->
+<div id="menu" class="menu-wrapper">
+  <!-- Nhập tên -->
+  <div class="menu-block">
+    <input id="nameInput" placeholder="👤 Nhập tên của bạn (tùy chọn)">
+  </div>
+
+  <!-- Nhập mã phòng -->
+  <div class="menu-block">
+    <input id="roomInput" placeholder="🔢 Nhập mã phòng">
+  </div>
+
+  <!-- Hai nút hành động -->
+  <div class="menu-buttons">
+    <button id="joinBtn" class="btn-secondary">🚀 Tham gia</button>
+    <button id="createBtn" class="btn-primary">🏠 Tạo phòng mới</button>
+  </div>
+
+  <p class="menu-tip">
+    💡 Nhập tên và mã phòng rồi chọn <b>Tham gia</b> để vào trò chơi, hoặc bấm <b>Tạo phòng mới</b> để làm chủ phòng.
+  </p>
+</div>
+
+
+
+    <!-- 🔹 Sảnh chờ -->
+<div id="lobby" style="display:none;">
+  <h2 id="roomCode">Mã phòng:</h2>
+  <p id="hostLabel"></p>
+
+  <!-- ✅ QR Code hiển thị khi tạo phòng -->
+  <div id="qrWrapper">
+    <div id="qrCode"></div>
+    <p class="qrHint">📱 Quét mã QR để tham gia nhanh</p>
+    <p class="qrHint">
+      hoặc nhập mã phòng: <b id="roomCodeText"></b>
+    </p>
+  </div>
+
+  <!-- Danh sách người chơi -->
+  <div id="players" class="panel"></div>
+
+  <!-- Điều khiển của Host -->
+  <div id="hostControls" style="display:none;">
+    <button id="startGameBtn">Bắt đầu game</button>
+  </div>
+</div>
+
+
+
+    <!-- 🔹 Khu vực game -->
+    <div id="game" style="display:none;">
+      <h2 id="roomTitle"></h2>
+      <p id="playerInfo" style="text-align:center; margin-bottom:10px; font-weight:500; color:#444;">
+        👤 Bạn: ... | 👥 Đang chơi: ...
+      </p>
+      
+
+      <!-- Câu hỏi -->
+      <div id="questionWrapper" class="panel">
+        <div id="timer">⏱ Thời gian: <span id="timeLeft">--</span>s</div>
+        <div id="questionText" style="margin:15px 0;"></div>
+        <div id="options" class="options"></div>
+      </div>
+
+      <!-- Sau khi trả lời -->
+      <div id="afterAnswer" class="panel" style="display:none;">
+        <p id="answerStatus"></p>
+      </div>
+
+      <!-- Người chơi chờ host -->
+      <div id="waitingOverlay" class="panel" style="display:none;">
+        <p style="text-align:center; font-size:18px;">⏳ Đang chờ Host chuyển sang câu tiếp theo...</p>
+      </div>
+
+      <!-- Nút Next cho host -->
+      <button id="nextBtn" style="display:none;">➡ Host: Sang câu tiếp</button>
+
+      <!-- Bảng xếp hạng -->
+<div id="leaderboard" style="display:none; text-align:center;">
+  <h2 style="font-size:28px; margin-bottom:20px;">🏁 Bảng Xếp Hạng</h2>
+  <div id="board" class="leaderboard-board"></div>
+  <button id="backToMenu" class="btn">🔄 Quay lại menu</button>
+</div>
+
+      <!-- 🔹 Xem lại đáp án -->
+      <div id="reviewAnswers" style="display:none; text-align:left; margin-top:20px;">
+        <h2>📘 Xem lại các câu hỏi</h2>
+        <div id="reviewList"></div>
+        <button id="backToLeaderboard" class="btn">⬅ Quay lại bảng xếp hạng</button>
+      </div>
+
+    </div>
+  </div>
+
+    <!-- ✅ Di chuyển phần đếm ngược RA NGOÀI container -->
+  <div id="countdownOverlay" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  color:#fff;
+  font-size:120px;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+">
+  <div id="countdownNumber">3</div>
+</div>
+
+
+
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+
+
+  <!-- File cấu hình & logic -->
+  <script src="firebase-config.js"></script>
+  <script src="script.js?v=39"></script>
+
+</body>
+</html>
